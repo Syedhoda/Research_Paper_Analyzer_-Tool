@@ -10,57 +10,47 @@
   <style>
     body {
       font-family: "Merriweather", serif;
-      background-color: #f8fafc;
-    }
-    .container {
-      max-width: 900px;
-      margin: auto;
-    }
-    h1 {
-      text-align: center;
-      font-size: 2rem;
-      color: #1f2937;
     }
     .hidden {
       display: none;
     }
-    .btn {
-      padding: 10px 20px;
-      font-size: 1rem;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .btn-primary {
-      background-color: #2563eb;
-      color: white;
-    }
-    .btn-primary:hover {
-      background-color: #1e40af;
-    }
-    .footer {
+    h1 {
       text-align: center;
-      margin-top: 20px;
-      font-size: 0.9rem;
-      color: #6b7280;
     }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.9.359/pdf.min.js"></script>
+  <script src="https://npmcdn.com/pdfjs-dist@2.9.359/web/pdf_viewer.js"></script>
 </head>
-<body>
-  <div class="container py-10 px-4">
-    <h1 class="font-bold mb-5">AI Research Paper Analyzer</h1>
-    <div class="bg-white p-6 rounded shadow-lg">
-      <form id="researchPaperForm">
-        <div class="mb-4">
-          <label for="uploadPaper" class="block text-sm font-medium">Upload Research Paper (PDF):</label>
-          <input type="file" id="uploadPaper" class="mt-2 w-full border rounded p-2" accept="application/pdf">
-        </div>
-        <button type="submit" id="analyzeButton" class="btn btn-primary w-full hidden">Analyze Paper</button>
-        <button type="button" id="uploadNewFile" class="btn btn-primary w-full mt-2 hidden">Upload New File</button>
-      </form>
-      <div id="pdfPreview" class="bg-gray-100 p-4 rounded mt-4 hidden"></div>
+<body class="bg-gray-100">
+  <div class="container mx-auto py-10 px-4">
+    <h1 class="text-4xl font-bold mb-5">AI Research Paper Analyzer</h1>
+    <div class="flex flex-wrap -mx-4">
+      <div class="w-full lg:w-1/2 px-4">
+        <form id="researchPaperForm" class="bg-white p-6 rounded shadow-lg">
+          <div class="mb-4">
+            <label for="uploadPaper" class="block text-sm font-medium">Upload Research Paper (PDF):</label>
+            <input type="file" id="uploadPaper" class="mt-1" accept="application/pdf">
+          </div>
+          <button type="button" id="uploadNewFile" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-800">Upload New File</button>
+          <button type="submit" id="analyzeButton" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-800 hidden">Analyze Paper</button>
+        </form>
+        <section id="output" class="bg-white p-6 mt-8 mb-10 rounded shadow-lg text-gray-900"></section>
+      </div>
+      <div class="w-full lg:w-1/2 px-4">
+        <div id="pdfPreview" class="bg-white p-6 rounded shadow-lg h-[500px] overflow-auto"></div>
+      </div>
     </div>
   </div>
-  <p class="footer">Developed by: Syed Rafiq ul Hoda - Email: syedrafiqhoda@gmail.com</p>
+  <footer class="text-center mt-10 p-4 bg-gray-200">
+    <p>Developed by: Syed Rafiq ul Hoda - Email: <a href="mailto:syedrafiqhoda@gmail.com" class="text-blue-600">syedrafiqhoda@gmail.com</a></p>
+  </footer>
+  <script>
+    document.getElementById("uploadNewFile").addEventListener("click", () => {
+      document.getElementById("uploadPaper").value = "";
+      document.getElementById("analyzeButton").classList.add("hidden");
+      document.getElementById("output").innerText = "";
+      document.getElementById("pdfPreview").innerHTML = "";
+    });
+  </script>
 </body>
 </html>
