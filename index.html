@@ -56,7 +56,7 @@
 
     function updatePageInfo() {
       const pageInfo = document.getElementById("pageInfo");
-      pageInfo.innerText = ${currentPage} / ${pdf.numPages};
+      pageInfo.innerText = `${currentPage} / ${pdf.numPages}`;
       pageInfo.classList.toggle("hidden", pdf.numPages === 1);
     }
 
@@ -95,7 +95,7 @@
 
     document.getElementById("researchPaperForm").addEventListener("submit", (event) => {
       event.preventDefault();
-      const promptTemplate = 
+      const promptTemplate = `
         Read the provided research paper and generate a structured summary including the following:
         
         Title & Authors: Mention the title and authors of the paper.
@@ -105,7 +105,7 @@
         Shortcomings: Identify any limitations or challenges mentioned by the authors.
         Future Work: Highlight any proposed directions for further research.
 
-        {Paper text};
+        {Paper text}`;
       const paperText = document.getElementById("paper").value;
 
       if (!paperText.trim()) {
@@ -120,7 +120,7 @@
       const output = document.getElementById("output");
       output.innerText = "";
 
-      const ws = new WebSocket(wss://backend.buildpicoapps.com/ask_ai_streaming_v2);
+      const ws = new WebSocket(`wss://backend.buildpicoapps.com/ask_ai_streaming_v2`);
 
       ws.addEventListener("open", () => {
           ws.send(
@@ -132,7 +132,7 @@
         });
 
       ws.addEventListener("message", (event) => {
-        output.innerText = ${output.innerText}${event.data};
+        output.innerText = `${output.innerText}${event.data}`;
       });
 
       ws.addEventListener("close", (event) => {
@@ -162,7 +162,7 @@
           const textContent = await page.getTextContent();
           const pageText = textContent.items.map(item => item.str).join(' ');
 
-          extractedText += ${pageText} ;
+          extractedText += `${pageText} `;
         }
 
         document.getElementById("paper").value = extractedText.trim();
@@ -190,9 +190,9 @@
         alert("Oops, we couldn't extract text from this PDF. Please try another file.");
       }
     });
-    <footer class="text-center mt-10 p-4 bg-gray-200">
+  </script>
+  <footer class="text-center mt-10 p-4 bg-gray-200">
     <p>Developed by: Syed Rafiq ul Hoda - Email: <a href="mailto:syedrafiqhoda@gmail.com" class="text-blue-600">syedrafiqhoda@gmail.com</a></p>
   </footer>
-  </script>
 </body>
 </html>
